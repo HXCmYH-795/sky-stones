@@ -97,7 +97,7 @@ class SkyStoneCalendar {
       
       if (continueToInternational) {
         continueToInternational.addEventListener('click', () => {
-          window.open('https://sky-shards.pages.dev/zh', '_blank', 'noopener,noreferrer');
+          window.location.href = 'https://sky-shards.pages.dev/zh';
           closeModal();
         });
       }
@@ -720,28 +720,54 @@ sky-stones.pages.dev`;
   hasRedStone(date) {
     const day = date.getDate();
     const dayOfWeek = date.getDay();
-    if (day <= 15) return dayOfWeek === 6 || dayOfWeek === 0;
-    else return dayOfWeek === 5 || dayOfWeek === 0;
+    const config = this.stoneConfig;
+    if (day <= config.halfMonthBoundary) {
+      return config.redStoneDays.firstHalf.includes(dayOfWeek);
+    } else {
+      return config.redStoneDays.secondHalf.includes(dayOfWeek);
+    }
   }
-  
+
   hasBlackStone(date) {
     const day = date.getDate();
     const dayOfWeek = date.getDay();
+    const config = this.stoneConfig;
     if (this.isCrossMonthHalf(date)) return false;
-    if (day <= 15) return dayOfWeek === 2;
-    else return dayOfWeek === 3;
+    if (day <= config.halfMonthBoundary) {
+      return config.blackStoneDays.firstHalf.includes(dayOfWeek);
+    } else {
+      return config.blackStoneDays.secondHalf.includes(dayOfWeek);
+    }
   }
   
   isCrossMonthHalf(date) {
+    const day = date.getDate();
     const dayOfWeek = date.getDay();
-    if (![2, 3].includes(dayOfWeek)) return false;
-    
     const month = date.getMonth();
     const year = date.getFullYear();
-    let wednesday = new Date(date);
-    const daysToWednesday = 3 - dayOfWeek;
-    wednesday.setDate(date.getDate() + (daysToWednesday > 0 ? daysToWednesday : daysToWednesday + 7));
-    return wednesday.getMonth() !== month || wednesday.getFullYear() !== year;
+
+    // 只有周二需要检查（看当周的周三是否跨半月）
+    if (dayOfWeek === 2) {
+      // 计算当周三是几号
+      const wednesday = new Date(year, month, day + 1);
+      // 如果周三跨到了下个月，说明跨半月
+      if (wednesday.getMonth() !== month) return true;
+      // 如果周三是16号或之后（下半月），而当天是15号或之前（上半月），跨半月
+      if (wednesday.getDate() >= 16 && day <= 15) return true;
+      return false;
+    }
+
+    // 周三当天：直接判断
+    if (dayOfWeek === 3) {
+      // 周三如果是16号或之后，且前一天的周二还在上半月，就是跨半月
+      if (day >= 16 && day <= 22) {
+        const tuesday = day - 1;
+        if (tuesday <= 15) return true;
+      }
+      return false;
+    }
+
+    return false;
   }
   
   getTimeSlots(dayOfWeek) {
@@ -770,6 +796,8 @@ sky-stones.pages.dev`;
     
     if (!hasRed && !hasBlack) {
       this.statusInfoText.textContent = '今天无红黑石';
+      this.statusInfoBox.style.borderColor = '#D1D5DB';
+      this.statusInfoBox.style.borderWidth = '1px';
       return;
     }
     
@@ -840,7 +868,20 @@ sky-stones.pages.dev`;
         statusText += `<br>降落地点：${map}·${area}`;
       }
     }
-    
+    // 根据红黑石状态调整信息条边框颜色
+    if (foundActiveSlot || hasRed || hasBlack) {
+      const stoneType = hasRed ? '红石' : '黑石';
+      if (stoneType === '红石') {
+        this.statusInfoBox.style.borderColor = '#D05D5A';
+        this.statusInfoBox.style.borderWidth = '2px';
+      } else {
+        this.statusInfoBox.style.borderColor = '#6B6B6B';
+        this.statusInfoBox.style.borderWidth = '2px';
+      }
+    } else {
+      this.statusInfoBox.style.borderColor = '#D1D5DB'; // 默认灰色
+      this.statusInfoBox.style.borderWidth = '1px';
+    }
     this.statusInfoText.innerHTML = statusText;
   }
 }

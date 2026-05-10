@@ -101,613 +101,6 @@
     }
   </style>
   
-  <style>
-    /* 全局样式 */
-    body {
-      background-color: #FAFAFA;
-    }
-    
-    /* 日历动画 */
-    .calendar-transition {
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    
-    .calendar-enter {
-      transform: translateX(20px);
-      opacity: 0;
-    }
-    
-    .calendar-exit {
-      transform: translateX(-20px);
-      opacity: 0;
-    }
-    
-    /* 日期格子动画 */
-    .day-cell {
-      transition: all 0.2s ease;
-    }
-    
-    /* 自定义滚动条 */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 3px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: #D32F2F;
-      border-radius: 3px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #B71C1C;
-    }
-    
-    /* 截图区域样式 */
-    .screenshot-area {
-      display: none; /* 默认隐藏截图区域 */
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      background-color: #FAFAFA;
-      width: 100%;
-      max-width: 800px; /* 限制截图宽度 */
-      margin: 0 auto;
-    }
-    
-    /* 优化日期格子布局 */
-    .calendar-grid {
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 2px;
-    }
-    
-    /* 开发者模式开关样式 */
-    #devModeToggle:checked + div {
-      background-color: #D05D5A;
-    }
-    
-    #devModeToggle:checked ~ .dot {
-      transform: translateX(100%);
-    }
-    
-    /* PC端日期格子样式 */
-    .pc-day-cell {
-      padding: 2px;
-      display: flex;
-      aspect-ratio: 1/1;
-    }
-    
-    /* 移动端日期格子样式 */
-    .mobile-day-cell {
-      aspect-ratio: 1/1;
-    }
-    
-    /* 红黑石类型标签样式 */
-    .stone-type {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-left: 0.3rem;
-    }
-    
-    /* 移动端类型标签 */
-    .mobile-stone-type {
-      font-size: 0.7rem;
-      font-weight: bold;
-      margin-top: 2px;
-    }
-    
-    /* 区域信息样式 */
-    .stone-area {
-      font-size: 0.8rem;
-      text-align: center;
-      margin-bottom: 0.05rem;
-      opacity: 0.9;
-    }
-    
-    /* 时间段样式 */
-    .stone-time {
-      font-size: 0.75rem;
-      line-height: 1.1;
-      text-align: center;
-    }
-    
-    /* 日期数字样式 */
-    .date-num {
-      font-size: 1rem;
-    }
-    
-    /* 移动端日期数字 */
-    .mobile-date-num {
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-    
-    /* 标题行样式 */
-    .header-row {
-      margin-bottom: 0.1rem;
-      justify-content: center;
-    }
-    
-    /* 内容容器样式 */
-    .content-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    
-    /* 详情弹窗样式 */
-    .detail-modal {
-      display: none !important; /* 默认隐藏 */
-    }
-    
-    .detail-modal.show {
-      display: flex !important; /* 显示时覆盖 */
-    }
-    
-    /* PC端隐藏移动端弹窗 */
-    @media (min-width: 641px) {
-      .mobile-only {
-        display: none !important;
-      }
-      #mobileDetailModal {
-        display: none !important;
-      }
-    }
-    
-    /* 移动端特定样式 */
-    @media (max-width: 640px) {
-      /* 调整日历容器内边距 */
-      .container {
-        padding: 0.5rem !important;
-      }
-      
-      .bg-white.rounded-xl.shadow-lg {
-        padding: 0.75rem !important;
-      }
-      
-      /* 调整按钮大小 */
-      .btn-icon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-      }
-      
-      .btn-primary {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-      }
-      
-      /* 调整国际服链接按钮位置和大小 */
-      #internationalLinkContainer {
-        top: 0.5rem;
-        left: 0.5rem;
-        z-index: 40;
-      }
-      
-      #internationalLinkBtn {
-        width: 2rem;
-        height: 2rem;
-        font-size: 0.875rem;
-      }
-      
-      #internationalLinkContainer span {
-        font-size: 0.625rem;
-      }
-      
-      /* 调整操作按钮位置，避免覆盖内容 */
-      .fixed.top-4.right-4 {
-        top: auto;
-        bottom: 1rem;
-        right: 1rem;
-        z-index: 50;
-        background-color: rgba(255,255,255,0.9);
-        padding: 0.5rem;
-        border-radius: 999px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      }
-      
-      /* 星期标题行字体调小 */
-      .grid.grid-cols-7.gap-2.mb-2 > div {
-        font-size: 0.75rem;
-        padding: 0.5rem 0;
-      }
-      
-      /* 优化移动端导航文字换行 */
-      .nav-text {
-        word-spacing: 100vw;
-        text-align: center;
-      }
-      
-      /* 调整模态框样式 */
-      #exportModal .bg-white.rounded-xl.p-6 {
-        margin: 0.5rem;
-        padding: 1rem !important;
-      }
-      
-      /* 调整底部信息 */
-      footer {
-        margin: 1rem 0 60px 0; /* 增加底部边距，避免被浮动按钮遮挡 */
-      }
-      
-      /* 优化日历标题大小 */
-      h1.text-\[clamp(1.5rem,4vw,2rem)\] {
-        font-size: clamp(1.2rem, 5vw, 1.8rem);
-      }
-      
-      h2#currentMonth {
-        font-size: clamp(1rem, 4vw, 1.2rem);
-      }
-      
-      .pc-only {
-        display: none !important;
-      }
-      
-      /* 截图区域在移动端的优化 */
-      .screenshot-area {
-        max-width: 100%;
-        padding: 0 10px;
-        box-sizing: border-box;
-      }
-    }
-    
-    /* 截图专用样式 - 确保截图内容清晰 */
-    .screenshot-area .pc-day-cell {
-      aspect-ratio: 1/1;
-      min-height: 50px; /* 确保每个格子有足够高度 */
-    }
-    
-    /* 移动端截图专用样式 - 完全重写布局系统 */
-    .screenshot-area.mobile-screenshot {
-      max-width: 100% !important;
-      width: 100% !important;
-      padding: 0 5px !important;
-      box-sizing: border-box !important;
-      overflow: hidden !important;
-    }
-    
-    /* 重新设计日历网格，解决格子重叠问题 */
-    .screenshot-area.mobile-screenshot .calendar-grid {
-      display: grid !important;
-      grid-template-columns: repeat(7, 1fr) !important;
-      gap: 1px !important; /* 减小间距避免格子重叠 */
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* 完全重写日期格子样式，解决宽度问题 */
-    .screenshot-area.mobile-screenshot .pc-day-cell {
-      aspect-ratio: 1/1.6 !important; /* 减小高度比例，使布局更紧凑 */
-      min-height: 80px !important; /* 减小最小高度 */
-      padding: 4px 2px !important; /* 减小内边距 */
-      box-sizing: border-box !important;
-      position: relative !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow: hidden !important;
-      border-radius: 4px !important;
-    }
-    
-    /* 为有红黑石信息的格子添加特殊样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg {
-      padding: 4px 2px !important; /* 调整有信息的格子内边距 */
-    }
-    
-    /* 重写内容容器，分别处理有无信息的情况 */
-    .screenshot-area.mobile-screenshot .content-container {
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      height: 100% !important;
-      width: 100% !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* 无红黑石信息的日期 - 仅显示居中的日期数字 */
-    .screenshot-area.mobile-screenshot .pc-day-cell:not(.redstone-bg):not(.blackstone-bg) .content-container {
-      justify-content: center !important;
-      align-items: center !important;
-    }
-    
-    .screenshot-area.mobile-screenshot .pc-day-cell:not(.redstone-bg):not(.blackstone-bg) .date-num {
-      font-size: 0.9rem !important;
-      font-weight: bold !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-    
-    /* 有红黑石信息的日期 - 完全重写布局 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .content-container,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .content-container {
-      justify-content: flex-start !important;
-      align-items: center !important;
-      gap: 0px !important;
-      padding-top: 1px !important; /* 进一步减小顶部空间 */
-      min-height: 70px !important; /* 进一步减小最小高度 */
-    }
-    
-    /* 重写header-row，分别处理有无信息的情况 */
-    .screenshot-area.mobile-screenshot .header-row {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: center !important;
-      align-items: center !important;
-      width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* 有红黑石信息的日期 - 重写header-row */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .header-row,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .header-row {
-      flex-direction: row !important; /* 日期和类型水平排列 */
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 1px !important;
-      margin-bottom: 1px !important;
-      width: 100% !important;
-    }
-    
-    /* 有红黑石信息的日期 - 重写日期数字 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .date-num,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .date-num {
-      font-size: 0.7rem !important;
-      font-weight: bold !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      flex-shrink: 0 !important;
-    }
-    
-    /* 有红黑石信息的日期 - 重写类型标签 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-type,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-type {
-      font-size: 0.5rem !important;
-      font-weight: bold !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      white-space: nowrap !important;
-      flex-shrink: 0 !important;
-    }
-    
-    /* 有红黑石信息的日期 - 重写区域信息 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-area,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-area {
-      font-size: 0.5rem !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1.1 !important;
-      width: 100% !important;
-      white-space: nowrap !important;
-      overflow: visible !important;
-      text-overflow: clip !important;
-      flex-shrink: 0 !important;
-      margin-top: 6px !important; /* 进一步减小间距 */
-    }
-    
-    /* 有红黑石信息的日期 - 重写时间段 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-time,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-time {
-      font-size: 0.4rem !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      width: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      gap: 0px !important;
-      flex-grow: 1 !important;
-      margin-top: 4px !important; /* 进一步减小与区域信息的间距 */
-    }
-    
-    /* 有红黑石信息的日期 - 重写时间段内的每个时间 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-time div,
-    .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-time div {
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      text-align: center !important;
-    }
-    
-    /* 确保非当前月的日期正确显示 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 {
-      opacity: 0.6 !important;
-    }
-    
-    /* 为非当前月有红黑石信息的日期添加相同的移动端样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400.redstone-bg,
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400.blackstone-bg {
-      opacity: 0.6 !important;
-    }
-    
-    /* 确保非当前月日期的内容容器也应用相同的移动端布局 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .content-container {
-      justify-content: flex-start !important;
-      align-items: center !important;
-      gap: 0px !important;
-      padding-top: 1px !important;
-      min-height: 70px !important;
-    }
-    
-    /* 确保非当前月日期的header-row也应用相同的移动端布局 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .header-row {
-      flex-direction: row !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 1px !important;
-      margin-bottom: 1px !important;
-      width: 100% !important;
-    }
-    
-    /* 确保非当前月日期的日期数字也应用相同的移动端样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .date-num {
-      font-size: 0.55rem !important;
-      font-weight: bold !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 0.8 !important;
-      flex-shrink: 0 !important;
-      height: 10px !important;
-      max-height: 10px !important;
-    }
-    
-    /* 确保非当前月日期的类型标签也应用相同的移动端样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-type {
-      font-size: 0.4rem !important;
-      font-weight: bold !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 0.8 !important;
-      white-space: nowrap !important;
-      flex-shrink: 0 !important;
-      height: 8px !important;
-      max-height: 8px !important;
-    }
-    
-    /* 确保非当前月日期的区域信息也应用相同的移动端样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-area {
-      font-size: 0.5rem !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1.1 !important;
-      width: 100% !important;
-      white-space: nowrap !important;
-      overflow: visible !important;
-      text-overflow: clip !important;
-      flex-shrink: 0 !important;
-      margin-top: 6px !important;
-    }
-    
-    /* 确保非当前月日期的时间段也应用相同的移动端样式 */
-    .screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-time {
-      font-size: 0.4rem !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      width: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      gap: 0px !important;
-      flex-grow: 1 !important;
-      margin-top: 4px !important;
-    }
-    
-    /* PC端截图样式 */
-    .screenshot-area.pc-screenshot .stone-area {
-      font-size: 0.75rem;
-    }
-    
-    .screenshot-area.pc-screenshot .stone-time {
-      font-size: 0.7rem;
-    }
-    
-    /* 彩蛋样式 */
-    #achievementEgg {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%) translateX(-100%);
-      z-index: 9999;
-      background: linear-gradient(135deg, #D05D5A 0%, #B71C1C 100%);
-      color: white;
-      padding: 1.5rem 2rem;
-      border-radius: 0 12px 12px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      pointer-events: none;
-    }
-    
-    #achievementEgg.show {
-      transform: translateY(-50%) translateX(0);
-    }
-    
-    #achievementEgg .egg-icon {
-      font-size: 2rem;
-      opacity: 0.9;
-    }
-    
-    #achievementEgg .egg-content {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    
-    #achievementEgg .egg-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    }
-    
-    #achievementEgg .egg-desc {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    
-    /* 适配移动端彩蛋 */
-    @media (max-width: 640px) {
-      #achievementEgg {
-        padding: 1rem 1.5rem;
-        max-width: 80%;
-      }
-      
-      #achievementEgg .egg-icon {
-        font-size: 1.5rem;
-      }
-      
-      #achievementEgg .egg-title {
-        font-size: 1rem;
-      }
-      
-      #achievementEgg .egg-desc {
-        font-size: 0.8rem;
-      }
-    }
-    
-    /* 彩蛋动画 */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    #achievementEgg .egg-icon {
-      animation: pulse 2s infinite ease-in-out;
-    }
-  </style>
 </head>
 <body class="min-h-screen font-sans text-gray-800">
   <!-- 彩蛋元素 -->
@@ -891,35 +284,45 @@
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
             <div class="space-y-3 text-sm">
               <div class="flex items-start">
-                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">i</span>
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">
+                  <i class="fa fa-info"></i>
+                </span>
                 <div>
                   <span class="font-medium text-gray-800">使用说明</span>
                   <span class="text-gray-500"> — 打开本说明弹窗</span>
                 </div>
               </div>
               <div class="flex items-start">
-                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📋</span>
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">
+                  <i class="fa fa-copy"></i>
+                </span>
                 <div>
                   <span class="font-medium text-gray-800">复制</span>
                   <span class="text-gray-500"> — 一键复制今日红黑石信息（类型、地点、时间段），方便粘贴分享</span>
                 </div>
               </div>
               <div class="flex items-start">
-                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📤</span>
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">
+                  <i class="fa fa-share-alt"></i>
+                </span>
                 <div>
                   <span class="font-medium text-gray-800">导出图片</span>
                   <span class="text-gray-500"> — 将当前月份日历导出为 PNG 图片，可下载或分享</span>
                 </div>
               </div>
               <div class="flex items-start">
-                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📅</span>
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">
+                  <i class="fa fa-calendar-o"></i>
+                </span>
                 <div>
                   <span class="font-medium text-gray-800">回到今天</span>
                   <span class="text-gray-500"> — 快速跳回当前月份</span>
                 </div>
               </div>
               <div class="flex items-start">
-                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">👁</span>
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">
+                  <i class="fa fa-eye-slash"></i>
+                </span>
                 <div>
                   <span class="font-medium text-gray-800">小眼睛</span>
                   <span class="text-gray-500"> — 隐藏/显示工具栏和"今日"标记，获得干净展示的日历</span>
@@ -951,7 +354,7 @@
       <div id="content-mechanics" class="tab-content space-y-6 hidden">
         <!-- 速查卡片 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">速查</h3>
+          <h3 class="text-xl font-semibold mb-3">机制速览</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- 红石卡片 -->
             <div class="bg-white border border-primary/30 rounded-lg p-4">
@@ -1361,33 +764,27 @@
   
   <!-- 国际服跳转确认弹窗 -->
   <div id="internationalModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 hidden">
-    <div class="bg-white rounded-xl p-6 max-w-md w-full max-h-[80vh] overflow-auto shadow-xl">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-semibold">外部链接确认</h3>
-        <button id="closeInternationalModal" class="text-gray-500 hover:text-gray-700">
-          <i class="fa fa-times text-xl"></i>
-        </button>
+    <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-xl">
+      <div class="text-center mb-4">
+        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fa fa-globe text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800">跳转至国际服日历</h3>
       </div>
       <div class="mb-6">
-        <p class="text-gray-700 mb-4">
-          您即将访问的是由其他开发者制作的国际服红黑石日历网站。
+        <p class="text-sm text-gray-600 text-center mb-3">
+          您即将访问的是其他开发者制作的<br><strong>国际服红黑石日历（sky-shards）</strong>，与本站无关
         </p>
-        <p class="text-gray-700 mb-4">
-          我方（国服日历开发者）出于友情和促进社区交流进步的目的，提供此跳转链接。该国际服网站的内容、功能均由其作者负责。
-        </p>
-        <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-          <p class="text-sm text-blue-700">
-            <i class="fa fa-info-circle mr-2"></i>
-            点击"继续访问"将在新标签页中打开外部网站
-          </p>
+        <div class="bg-gray-50 rounded-lg p-3 text-xs text-gray-500 text-center">
+          点击后可通过浏览器返回键回到本站
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <button id="continueToInternational" class="btn-primary flex-1">
-          <i class="fa fa-external-link mr-2"></i>继续访问
-        </button>
-        <button id="cancelInternational" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors flex-1">
+      <div class="flex gap-3">
+        <button id="cancelInternational" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm">
           取消
+        </button>
+        <button id="continueToInternational" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+          继续访问
         </button>
       </div>
     </div>
@@ -1453,9 +850,8 @@
         </div>
         
         <!-- 状态信息显示框 -->
-        <div id="statusInfoBox" class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm max-w-full text-center shadow-sm hover:shadow-md transition-shadow">
+        <div id="statusInfoBox" class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm max-w-full text-center shadow-sm">
           <div id="statusInfoText" class="break-words">今天无红黑石</div>
-        </div>
       </div>
       
       <!-- 星期标题行 -->
