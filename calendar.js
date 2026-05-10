@@ -157,12 +157,19 @@ class SkyStoneCalendar {
     const resetDevTime = document.getElementById('resetDevTime');
     const devModeToggle = document.getElementById('devModeToggle');
     
+        // 开发者模式开关事件
     if (devModeToggle) {
       devModeToggle.addEventListener('change', (e) => {
         if (e.target.checked) {
+          // 打开开关：显示设置面板
           devModePanel.classList.remove('hidden');
         } else {
+          // 关闭开关：隐藏面板，同时重置为实时时间
           devModePanel.classList.add('hidden');
+          this.devMode = false;
+          this.devTime = null;
+          document.getElementById('devDateTime').value = '';
+          this.updateStoneStatus();
         }
       });
     }
