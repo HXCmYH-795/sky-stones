@@ -19,16 +19,6 @@
 - 📋 一键复制今日红黑石信息
 - 📤 将日历导出为图片分享给好友
 
-### 🚀 如何开始
-
-完全离线的单文件 HTML 应用，开箱即用。
-
-1. 点击绿色 **"Code"** 按钮，选择 **"Download ZIP"** 下载
-2. 解压 ZIP 包，找到 `index.html` 文件
-3. **双击 `index.html`**，浏览器直接打开使用
-
-> 不需要安装 Python、Node.js 或任何其他环境。
-
 ### 🛠️ 技术栈和项目状态
 
 目前项目主要逻辑都在 `index.html` 中，包含 HTML、CSS 和 JavaScript。这是我入门前端时使用 AI 辅助制作的练手项目。
@@ -64,16 +54,6 @@ A calendar tool that helps players of Sky: Children of the Light (China server) 
 - 📍 View eruption location & time slots (mobile: tap to see details; PC: details shown directly)
 - 📋 One-click copy of today's Red/Black Stone info
 - 📤 Export the calendar as an image to share with friends
-
-### 🚀 Getting Started
-
-This is a completely offline, single-file HTML application. No installation required.
-
-1. Click the green **"Code"** button and select **"Download ZIP"**
-2. Extract the ZIP file and find `index.html`
-3. **Double-click `index.html`** — it opens directly in your browser
-
-> No Python, Node.js, or any other environment needed.
 
 ### 🛠️ Tech Stack & Project Status
 
