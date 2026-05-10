@@ -1,6 +1,6 @@
 # sky-stones - 光遇国服红黑石日历
 
-👉 **[在线使用 / Open App](https://sky-stones.pages.dev)**
+**[在线使用 / Web](https://sky-stones.pages.dev)**
 
 [中文](#中文) | [English](#english)
 
@@ -8,33 +8,30 @@
 
 ## 中文
 
-光遇国服红黑石降落日历。
+光遇国服红黑石日历。
 
-### ✨ 它能做什么
+### 它能做什么
 
-这是一个帮助《光·遇》国服玩家计算和查看**红石**与**黑石**降落时间的日历工具。
+帮助《光·遇》国服玩家计算和查看**红石**与**黑石**的降落时间。
 
-- 📅 直观的日历视图，红石以红色标记，黑石以灰色标记
-- 📍 查看具体降落地点和时间段（移动端点击查看；PC端直接显示）
-- 📋 一键复制今日红黑石信息
-- 📤 将日历导出为图片分享给好友
-
-### 🛠️ 技术栈和项目状态
-
-目前项目主要逻辑都在 `index.html` 中，包含 HTML、CSS 和 JavaScript。这是我入门前端时使用 AI 辅助制作的练手项目。
+- 日历视图，红石以红色标记，黑石以灰色标记
+- 实时状态条，显示当前时段信息及倒计时
+- 一键复制今日红黑石信息
+- 日历导出为 PNG 图片
+- 支持 PC 端和移动端
 
 使用的外部库（通过 CDN 加载）：
 - [Tailwind CSS](https://tailwindcss.com/) — 样式框架
-- [Font Awesome](https://fontawesome.com/) — 图标库
+- [Font Awesome](https://fontawesome.com/) — 图标
 - [html2canvas](https://html2canvas.hertzen.com/) — 截图导出
 
-近期计划将 CSS 和 JS 分离为独立文件，优化代码结构和可维护性。欢迎提出建议！
+### 贡献与反馈
 
-### 🤝 贡献与反馈
+- Bug 反馈或功能建议 → [GitHub Issues](https://github.com/HXCmYH-795/sky-stones/issues)
+- 代码贡献 → Pull Request
+- 邮件联系：[ciki2099@foxmail.com](mailto:ciki2099@foxmail.com)
 
-个人学习作品，但非常欢迎你的反馈！
-
-### 📄 开源许可
+### 开源许可
 
 本项目代码采用 [MIT License](LICENSE) 协议。
 
@@ -44,34 +41,29 @@
 
 ## English
 
-Web application for Red & Black Stone events in the game "Sky: Children of the Light" (China server).
+Red & Black Shards eruption calendar for Sky: Children of the Light (China server).
 
-### ✨ What It Does
+### What It Does
 
-A calendar tool that helps players of Sky: Children of the Light (China server) track **Red Stone** and **Black Stone** eruption times.
+-Calendar view — Red Stones in red, Black Stones in gray
+-Real-time status bar with countdown
+-One-click copy of today's info
+-Export calendar as PNG image
+-PC and mobile supported
 
-- 📅 Intuitive calendar view — Red Stones marked in red, Black Stones in gray
-- 📍 View eruption location & time slots (mobile: tap to see details; PC: details shown directly)
-- 📋 One-click copy of today's Red/Black Stone info
-- 📤 Export the calendar as an image to share with friends
-
-### 🛠️ Tech Stack & Project Status
-
-The main logic currently lives in a single `index.html` file, containing HTML, CSS, and JavaScript. This was my beginner front-end project, built with AI assistance.
-
-External libraries used (loaded via CDN):
-- [Tailwind CSS](https://tailwindcss.com/) — styling framework
-- [Font Awesome](https://fontawesome.com/) — icon library
+External libraries (CDN):
+- [Tailwind CSS](https://tailwindcss.com/) — styling
+- [Font Awesome](https://fontawesome.com/) — icons
 - [html2canvas](https://html2canvas.hertzen.com/) — screenshot export
 
-Planning to separate CSS and JS into independent files soon to improve code structure and maintainability. Suggestions are welcome!
+### Feedback & Contributions
 
-### 🤝 Feedback & Contributions
+- Bug reports & feature requests → [GitHub Issues](https://github.com/HXCmYH-795/sky-stones/issues)
+- Code contributions → Pull Request
+- Email: [ciki2099@foxmail.com](mailto:ciki2099@foxmail.com)
 
-This is a personal learning project, but all feedback is warmly welcomed!
+### License
 
-### 📄 License
+Code is licensed under [MIT License](LICENSE).
 
-The code in this project is licensed under the [MIT License](LICENSE).
-
-> ⚠️ **Exception**: `favicon-180x180.png` is derived from in-game assets of "Sky: Children of the Light" and is not covered by this license. All rights to that asset belong to the original copyright holder(s).
+> ⚠️ **Exception**: `favicon-180x180.png` is derived from in-game assets. All rights belong to the original copyright holder(s).
