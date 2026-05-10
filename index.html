@@ -784,82 +784,146 @@
         </nav>
       </div>
       
-      <!-- 使用说明内容 -->
+            <!-- 使用说明内容 -->
       <div id="content-usage" class="tab-content space-y-6">
-        <!-- 图例说明 -->
+        <!-- 状态信息条 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">图例说明</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="flex items-center">
-              <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white mr-3">
-                <span class="font-semibold">1</span>
+          <h3 class="text-xl font-semibold mb-3">状态信息条</h3>
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <p class="text-sm text-gray-600 mb-3">
+              日历上方的信息条会实时显示当前红黑石的状态，根据时间自动变化。
+            </p>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start">
+                <span class="text-gray-400 mr-2 mt-0.5">•</span>
+                <div>
+                  <span class="text-gray-800 font-medium">今天无红黑石</span>
+                  <span class="text-gray-500"> — 今日没有红石/黑石的降落</span>
+                </div>
               </div>
-              <span>红石日期</span>
-            </div>
-            <div class="flex items-center">
-              <div class="w-8 h-8 bg-blackstone rounded flex items-center justify-center text-white mr-3">
-                <span class="font-semibold">1</span>
+              <div class="flex items-start">
+                <span class="text-gray-400 mr-2 mt-0.5">•</span>
+                <div>
+                  <span class="text-red-500 font-medium">红石 / 黑石 正在进行中</span>
+                  <span class="text-gray-500"> — 当前处于某个降落时间段内</span>
+                </div>
               </div>
-              <span>黑石日期</span>
-            </div>
-            <div class="flex items-center">
-              <div class="w-8 h-8 bg-white border border-gray-300 rounded flex items-center justify-center text-gray-800 mr-3">
-                <span class="font-semibold">1</span>
+              <div class="flex items-start">
+                <span class="text-gray-400 mr-2 mt-0.5">•</span>
+                <div>
+                  <span class="text-orange-500 font-medium">即将结束 / 不足5分钟</span>
+                  <span class="text-gray-500"> — 当前时段临结束前10分钟/5分钟时，会提示即将结束或建议不要前往</span>
+                </div>
               </div>
-              <span>普通日期</span>
-            </div>
-            <div class="flex items-center">
-              <div class="bg-white text-primary border border-primary text-xs px-1 rounded mr-3">
-                今日
+              <div class="flex items-start">
+                <span class="text-gray-400 mr-2 mt-0.5">•</span>
+                <div>
+                  <span class="text-blue-500 font-medium">距离下一场还有 X 小时 X 分钟</span>
+                  <span class="text-gray-500"> — 当天还有未开始的时段时，显示倒数时间及降落地点</span>
+                </div>
               </div>
-              <span>今日标记</span>
+              <div class="flex items-start">
+                <span class="text-gray-400 mr-2 mt-0.5">•</span>
+                <div>
+                  <span class="text-gray-500 font-medium">今日红石 / 黑石已全部结束</span>
+                  <span class="text-gray-500"> — 当天所有时段均已过</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
-        <!-- 功能介绍 -->
+
+        <!-- 日历视图 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">功能介绍</h3>
-          <div class="space-y-2">
-            <p>📅 <strong>日历视图</strong> - 直观显示每月红黑石降落日期，红石以红色标记，黑石以灰色标记</p>
-            <p>📍 <strong>详细信息</strong> - 点击日期查看具体降落地点和时间段</p>
-            <p>📋 <strong>复制功能</strong> - 一键复制今日红黑石信息</p>
-            <p>📤 <strong>导出分享</strong> - 将日历导出为图片分享给好友</p>
+          <h3 class="text-xl font-semibold mb-3">日历视图</h3>
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <p class="text-sm text-gray-600 mb-3">
+              日历中每个格子代表一天，颜色表示当天是否有红黑石降落：
+            </p>
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm mb-3">
+              <div class="flex items-center">
+                <div class="w-5 h-5 bg-primary rounded mr-2 flex-shrink-0"></div>
+                <span class="text-gray-700">红色背景 = 红石日</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-5 h-5 bg-blackstone rounded mr-2 flex-shrink-0"></div>
+                <span class="text-gray-700">灰色背景 = 黑石日</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-5 h-5 bg-white border border-gray-300 rounded mr-2 flex-shrink-0"></div>
+                <span class="text-gray-700">白色背景 = 无红黑石</span>
+              </div>
+              <div class="flex items-center">
+                <div class="bg-white text-primary border border-primary text-xs px-1 rounded mr-2 flex-shrink-0">今日</div>
+                <span class="text-gray-700">= 当天日期</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-500">
+              点击月份两侧的箭头可切换月份，点击"回到今天"按钮可快速跳回当前月份。
+            </p>
           </div>
         </section>
-        <!-- 使用方法 -->
+
+        <!-- PC端与移动端 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">使用方法</h3>
-          <div class="space-y-3">
-            <div class="flex items-start">
-              <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">1</span>
+          <h3 class="text-xl font-semibold mb-3">PC端与移动端的区别</h3>
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <strong>查看日历</strong> - 红日期表示红石，灰日期表示黑石，白色日期无红黑石
+                <h4 class="font-medium text-gray-800 mb-2">🖥️ PC 端</h4>
+                <p class="text-gray-600">
+                  红黑石日期格子上直接显示降落地点和时间段，无需额外点击。
+                </p>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-800 mb-2">📱 移动端</h4>
+                <p class="text-gray-600">
+                  日期格子上仅显示"红石"或"黑石"标签，点击有颜色的日期可弹出详情窗口，查看具体地点和时间段。左右滑动日历区域可切换月份。
+                </p>
               </div>
             </div>
-            <div class="flex items-start">
-              <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">2</span>
-              <div>
-                <strong>查看详情</strong> - 
-                <span class="hidden md:inline">PC端信息直接显示在日期格子上；</span>
-                <span class="md:hidden">移动端点击有颜色的日期可查看详情；</span>
+          </div>
+        </section>
+
+        <!-- 工具栏按钮 -->
+        <section>
+          <h3 class="text-xl font-semibold mb-3">工具栏按钮</h3>
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">i</span>
+                <div>
+                  <span class="font-medium text-gray-800">使用说明</span>
+                  <span class="text-gray-500"> — 打开本说明弹窗</span>
+                </div>
               </div>
-            </div>
-            <div class="flex items-start">
-              <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">3</span>
-              <div>
-                <strong>复制信息</strong> - 点击右上角复制按钮，复制今日红黑石信息
+              <div class="flex items-start">
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📋</span>
+                <div>
+                  <span class="font-medium text-gray-800">复制</span>
+                  <span class="text-gray-500"> — 一键复制今日红黑石信息（类型、地点、时间段），方便粘贴分享</span>
+                </div>
               </div>
-            </div>
-            <div class="flex items-start">
-              <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">4</span>
-              <div>
-                <strong>导出分享</strong> - 点击分享按钮，将日历导出为图片
+              <div class="flex items-start">
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📤</span>
+                <div>
+                  <span class="font-medium text-gray-800">导出图片</span>
+                  <span class="text-gray-500"> — 将当前月份日历导出为 PNG 图片，可下载或分享</span>
+                </div>
               </div>
-            </div>
-            <div class="flex items-start">
-              <span class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">5</span>
-              <div>
-                <strong>隐藏工具栏</strong> - 点击小眼睛图标可隐藏/显示工具栏和"今日"标记
+              <div class="flex items-start">
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">📅</span>
+                <div>
+                  <span class="font-medium text-gray-800">回到今天</span>
+                  <span class="text-gray-500"> — 快速跳回当前月份</span>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0 text-xs">👁</span>
+                <div>
+                  <span class="font-medium text-gray-800">小眼睛</span>
+                  <span class="text-gray-500"> — 隐藏/显示工具栏和"今日"标记，获得干净展示的日历</span>
+                </div>
               </div>
             </div>
           </div>
@@ -875,7 +939,7 @@
               </div>
               <div class="ml-3">
                 <p class="text-sm text-yellow-700">
-                  本日历仅供参考，实际游戏中的红黑石降落可能会因游戏更新、担当主题活动场地或其他原因发生变化。如有差异，请以游戏内实际情况为准。
+                  本日历数据仅供参考，实际游戏中的红黑石降落可能因游戏更新、活动安排等原因发生变化。如有差异，请以游戏内实际情况为准。
                 </p>
               </div>
             </div>
@@ -885,322 +949,251 @@
       
       <!-- 游戏机制内容 -->
       <div id="content-mechanics" class="tab-content space-y-6 hidden">
-
-        
-        <!-- 红黑石概述 -->
+        <!-- 速查卡片 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">红黑石概述</h3>
+          <h3 class="text-xl font-semibold mb-3">速查</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 红石卡片 -->
+            <div class="bg-white border border-primary/30 rounded-lg p-4">
+              <h4 class="font-semibold text-primary mb-2 flex items-center">
+                <i class="fa fa-fire mr-2"></i>红石
+              </h4>
+              <div class="text-sm text-gray-700 space-y-1">
+                <p>上半月（1-15日）：<strong>周六、周日</strong></p>
+                <p>下半月（16-31日）：<strong>周五、周日</strong></p>
+                <p class="text-gray-500 text-xs mt-2">奖励：升华蜡烛 · 每周2次 · 最多5根</p>
+              </div>
+            </div>
+            <!-- 黑石卡片 -->
+            <div class="bg-white border border-blackstone/30 rounded-lg p-4">
+              <h4 class="font-semibold text-blackstone mb-2 flex items-center">
+                <i class="fa fa-moon-o mr-2"></i>黑石
+              </h4>
+              <div class="text-sm text-gray-700 space-y-1">
+                <p>上半月（1-15日）：<strong>周二</strong></p>
+                <p>下半月（16-31日）：<strong>周三</strong></p>
+                <p class="text-gray-500 text-xs mt-2">奖励：约200滴烛火（约2.5根白蜡） · 每周1次</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 规则详解 -->
+        <section>
+          <h3 class="text-xl font-semibold mb-3">规则详解</h3>
+          
+          <!-- 红石规则 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+            <h4 class="font-semibold text-primary mb-3">红石降落规则</h4>
+            <p class="text-sm text-gray-600 mb-3">
+              以每月15日为界：<strong>上半月</strong>在周六和周日降落，<strong>下半月</strong>在周五和周日降落。红石不会出现跨半月取消的情况。
+            </p>
+            <div class="bg-white rounded border border-gray-200 overflow-hidden">
+              <table class="min-w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-100 border-b border-gray-200">
+                    <th class="text-left py-2 px-3 font-medium">星期</th>
+                    <th class="text-left py-2 px-3 font-medium">时间段</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">周五</td>
+                    <td class="py-2 px-3 text-gray-600">11:08~12:00、17:08~18:00、23:08~24:00</td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">周六</td>
+                    <td class="py-2 px-3 text-gray-600">10:08~11:00、14:08~15:00、22:08~23:00</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-3 font-medium">周日</td>
+                    <td class="py-2 px-3 text-gray-600">07:08~08:00、13:08~14:00、19:08~20:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 黑石规则 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+            <h4 class="font-semibold text-blackstone mb-3">黑石降落规则</h4>
+            <p class="text-sm text-gray-600 mb-3">
+              以每月15日为界：<strong>上半月</strong>在周二降落，<strong>下半月</strong>在周三降落。
+            </p>
+            <div class="bg-white rounded border border-gray-200 overflow-hidden mb-3">
+              <table class="min-w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-100 border-b border-gray-200">
+                    <th class="text-left py-2 px-3 font-medium">星期</th>
+                    <th class="text-left py-2 px-3 font-medium">时间段</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">周二</td>
+                    <td class="py-2 px-3 text-gray-600">09:08~10:00、14:08~15:00、19:08~20:00</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-3 font-medium">周三</td>
+                    <td class="py-2 px-3 text-gray-600">09:08~10:00、15:08~16:00、21:08~22:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- 跨半月规则 - 高亮 -->
+            <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-3">
+              <h5 class="font-medium text-yellow-800 mb-1 flex items-center text-sm">
+                <i class="fa fa-exclamation-triangle mr-2 text-yellow-500"></i>跨半月取消规则
+              </h5>
+              <p class="text-sm text-yellow-700">
+                若某个周二与周三恰好在不同的半个月内（跨过了15/16日的分界线），当周黑石不会降落。
+              </p>
+              <p class="text-xs text-yellow-600 mt-1 italic">
+                例如：2024年12月31日是周二（下半月），次日2025年1月1日是周三（上半月），故该周无黑石。红石不受此规则影响。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 降落地点 -->
+        <section>
+          <h3 class="text-xl font-semibold mb-3">降落地点</h3>
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <p class="text-sm mb-3">光遇破晓季(Season of Shattering，又称破碎季）更新后新增了黑暗腐蚀机制，分为灼热碎片（红石）和冷却碎片（黑石）。</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-              <div class="bg-white p-3 rounded border border-primary/30">
-                <h4 class="font-semibold text-primary mb-2 flex items-center">
-                  <i class="fa fa-fire mr-2"></i>红石
-                </h4>
-                <p class="text-sm">完成红石净化任务可获得升华蜡烛。红石每周降落两次，两次净化任务一易一难，获得升华蜡烛数量不同，每周最多获得5根升华蜡烛。</p>
-              </div>
-              <div class="bg-white p-3 rounded border border-blackstone/30">
-                <h4 class="font-semibold text-blackstone mb-2 flex items-center">
-                  <i class="fa fa-moon-o mr-2"></i>黑石
-                </h4>
-                <p class="text-sm">完成黑石净化任务可获得约200滴烛火（三档加成下2.5根白蜡）。</p>
-              </div>
-            </div>
-            <p class="text-sm">完成红石净化任务后，会出现伊甸的记忆碎片（破晓季向导），可从其进入远古回忆获取光翼，领取并完成全部任务可获得6颗爱心和6个光翼。</p>
-          </div>
-        </section>
-
-        
-        <!-- 红黑石降落机制 -->
-        <section>
-          <h3 class="text-xl font-semibold mb-3">红黑石降落机制</h3>
-          <div class="space-y-4">
-            <!-- 红石降落规则 -->
-            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-              <h4 class="font-semibold mb-2 text-primary">红石降落规则</h4>
-              <div class="space-y-2">
-                <p class="text-sm">红石上半月（公历每月1~15日)在每周六和周日降落，</p>
-                <p class="text-sm">下半月（每月16~31日)在每周五和周日降落。</p>
-                <div class="bg-white rounded p-3 border border-gray-200">
-                  <h5 class="font-medium mb-2">红石时间段：</h5>
-                  <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm">
-                      <thead>
-                        <tr class="border-b border-gray-200">
-                          <th class="text-left py-2 px-3 font-medium">星期</th>
-                          <th class="text-left py-2 px-3 font-medium">时间段</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="border-b border-gray-200">
-                          <td class="py-2 px-3">周五</td>
-                          <td class="py-2 px-3">11:08~12:00, 17:08~18:00, 23:08~24:00</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                          <td class="py-2 px-3">周六</td>
-                          <td class="py-2 px-3">10:08~11:00, 14:08~15:00, 22:08~23:00</td>
-                        </tr>
-                        <tr>
-                          <td class="py-2 px-3">周日</td>
-                          <td class="py-2 px-3">07:08~08:00, 13:08~14:00, 19:08~20:00</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 黑石降落规则 -->
-            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-              <h4 class="font-semibold mb-2 text-blackstone">黑石降落规则</h4>
-              <div class="space-y-2">
-                <p class="text-sm">黑石上半月在周二降落，下半月在周三降落。</p>
-                <p class="text-sm text-yellow-600">特殊限制：若某周二、三恰好跨半月，当周黑石不会降落。</p>
-                <p class="text-sm text-gray-600 italic">（例如2024年12月31日是星期二，属于下半月，黑石应在星期三降落，而星期三是2025年1月1日，属于上半月，故当周没有黑石。）</p>
-                <p class="text-sm">红石降落不会出现这一情况。</p>
-                <div class="bg-white rounded p-3 border border-gray-200">
-                  <h5 class="font-medium mb-2">黑石时间段：</h5>
-                  <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm">
-                      <thead>
-                        <tr class="border-b border-gray-200">
-                          <th class="text-left py-2 px-3 font-medium">星期</th>
-                          <th class="text-left py-2 px-3 font-medium">时间段</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="border-b border-gray-200">
-                          <td class="py-2 px-3">周二</td>
-                          <td class="py-2 px-3">09:08~10:00, 14:08~15:00, 19:08~20:00</td>
-                        </tr>
-                        <tr>
-                          <td class="py-2 px-3">周三</td>
-                          <td class="py-2 px-3">09:08~10:00, 15:08~16:00, 21:08~22:00</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 跨半月判定逻辑 -->
-
-            
-            <!-- 掉落地点规则 -->
-            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-              <h4 class="font-semibold mb-2">掉落地点规则</h4>
-              <p class="text-sm mb-2">大地图由日期数字除以5的余数决定：</p>
-              <ul class="list-disc list-inside space-y-1 text-sm mb-3">
-                <li>余0 → 霞谷</li>
-                <li>余1 → 暮土</li>
-                <li>余2 → 禁阁</li>
-                <li>余3 → 云野</li>
-                <li>余4 → 雨林</li>
-              </ul>
-              <p class="text-sm mb-2">具体小区域结合星期几确定：</p>
-              <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
-                  <thead>
-                    <tr class="border-b border-gray-200">
-                      <th class="text-left py-2 px-3 font-medium">地图</th>
-                      <th class="text-left py-2 px-3 font-medium">周二</th>
-                      <th class="text-left py-2 px-3 font-medium">周三</th>
-                      <th class="text-left py-2 px-3 font-medium">周五</th>
-                      <th class="text-left py-2 px-3 font-medium">周六</th>
-                      <th class="text-left py-2 px-3 font-medium">周日</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-gray-200">
-                      <td class="py-2 px-3">霞谷</td>
-                      <td class="py-2 px-3">滑冰场</td>
-                      <td class="py-2 px-3">滑冰场</td>
-                      <td class="py-2 px-3">圆梦村</td>
-                      <td class="py-2 px-3">圆梦村</td>
-                      <td class="py-2 px-3">雪隐峰</td>
-                    </tr>
-                    <tr class="border-b border-gray-200">
-                      <td class="py-2 px-3">暮土</td>
-                      <td class="py-2 px-3">边陲荒漠</td>
-                      <td class="py-2 px-3">远古战场</td>
-                      <td class="py-2 px-3">黑水港湾</td>
-                      <td class="py-2 px-3">巨兽荒原</td>
-                      <td class="py-2 px-3">失落方舟</td>
-                    </tr>
-                    <tr class="border-b border-gray-200">
-                      <td class="py-2 px-3">禁阁</td>
-                      <td class="py-2 px-3">星光沙漠</td>
-                      <td class="py-2 px-3">星光沙漠</td>
-                      <td class="py-2 px-3">商船星球</td>
-                      <td class="py-2 px-3">商船星球</td>
-                      <td class="py-2 px-3">商船星球</td>
-                    </tr>
-                    <tr class="border-b border-gray-200">
-                      <td class="py-2 px-3">云野</td>
-                      <td class="py-2 px-3">蝴蝶平原</td>
-                      <td class="py-2 px-3">仙乡</td>
-                      <td class="py-2 px-3">云顶浮石</td>
-                      <td class="py-2 px-3">幽光山洞</td>
-                      <td class="py-2 px-3">圣岛</td>
-                    </tr>
-                    <tr>
-                      <td class="py-2 px-3">雨林</td>
-                      <td class="py-2 px-3">荧光森林</td>
-                      <td class="py-2 px-3">密林遗迹</td>
-                      <td class="py-2 px-3">大树屋</td>
-                      <td class="py-2 px-3">雨林神殿</td>
-                      <td class="py-2 px-3">秘密花园</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <p class="text-sm text-gray-600 mb-3">
+              <strong>大地图</strong>由日期数字除以5的余数决定：余0=霞谷，余1=暮土，余2=禁阁，余3=云野，余4=雨林。<br>
+              <strong>具体小区域</strong>再由星期几确定：
+            </p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+                <thead>
+                  <tr class="bg-gray-100 border-b border-gray-200">
+                    <th class="text-left py-2 px-3 font-medium">地图</th>
+                    <th class="text-left py-2 px-3 font-medium">周二</th>
+                    <th class="text-left py-2 px-3 font-medium">周三</th>
+                    <th class="text-left py-2 px-3 font-medium">周五</th>
+                    <th class="text-left py-2 px-3 font-medium">周六</th>
+                    <th class="text-left py-2 px-3 font-medium">周日</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">霞谷</td>
+                    <td class="py-2 px-3 text-gray-600">滑冰场</td>
+                    <td class="py-2 px-3 text-gray-600">滑冰场</td>
+                    <td class="py-2 px-3 text-gray-600">圆梦村</td>
+                    <td class="py-2 px-3 text-gray-600">圆梦村</td>
+                    <td class="py-2 px-3 text-gray-600">雪隐峰</td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">暮土</td>
+                    <td class="py-2 px-3 text-gray-600">边陲荒漠</td>
+                    <td class="py-2 px-3 text-gray-600">远古战场</td>
+                    <td class="py-2 px-3 text-gray-600">黑水港湾</td>
+                    <td class="py-2 px-3 text-gray-600">巨兽荒原</td>
+                    <td class="py-2 px-3 text-gray-600">失落方舟</td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">禁阁</td>
+                    <td class="py-2 px-3 text-gray-600">星光沙漠</td>
+                    <td class="py-2 px-3 text-gray-600">星光沙漠</td>
+                    <td class="py-2 px-3 text-gray-600">商船星球</td>
+                    <td class="py-2 px-3 text-gray-600">商船星球</td>
+                    <td class="py-2 px-3 text-gray-600">商船星球</td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-2 px-3 font-medium">云野</td>
+                    <td class="py-2 px-3 text-gray-600">蝴蝶平原</td>
+                    <td class="py-2 px-3 text-gray-600">仙乡</td>
+                    <td class="py-2 px-3 text-gray-600">云顶浮石</td>
+                    <td class="py-2 px-3 text-gray-600">幽光山洞</td>
+                    <td class="py-2 px-3 text-gray-600">圣岛</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-3 font-medium">雨林</td>
+                    <td class="py-2 px-3 text-gray-600">荧光森林</td>
+                    <td class="py-2 px-3 text-gray-600">密林遗迹</td>
+                    <td class="py-2 px-3 text-gray-600">大树屋</td>
+                    <td class="py-2 px-3 text-gray-600">雨林神殿</td>
+                    <td class="py-2 px-3 text-gray-600">秘密花园</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
-        
-        <!-- 地点说明 -->
+
+        <!-- 地点补充说明 -->
         <section>
-          <h3 class="text-xl font-semibold mb-3">地点说明</h3>
+          <h3 class="text-xl font-semibold mb-3">地点参考</h3>
           <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
               <div>
-                <h4 class="font-semibold mb-2">云野</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                  <li>仙乡：三塔图</li>
-                  <li>云顶浮石：蝴蝶平原右侧</li>
-                  <li>幽光山洞：蝴蝶平原左侧</li>
+                <h4 class="font-medium text-gray-800 mb-1">云野</h4>
+                <ul class="text-gray-600 space-y-0.5">
+                  <li>• 仙乡：三塔图</li>
+                  <li>• 云顶浮石：蝴蝶平原右侧</li>
+                  <li>• 幽光山洞：蝴蝶平原左侧</li>
                 </ul>
               </div>
               <div>
-                <h4 class="font-semibold mb-2">雨林</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                  <li>荧光森林：一堆荧光板的地方，雨林开三个门后</li>
-                  <li>秘密花园：老奶奶干饭点，荧光森林右侧</li>
+                <h4 class="font-medium text-gray-800 mb-1">雨林</h4>
+                <ul class="text-gray-600 space-y-0.5">
+                  <li>• 荧光森林：开三个门后，有荧光板处</li>
+                  <li>• 秘密花园：老奶奶干饭点，荧光森林右侧</li>
                 </ul>
               </div>
               <div>
-                <h4 class="font-semibold mb-2">霞谷</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                  <li>雪隐峰：圆梦村坐两次船或从风行网道可达</li>
+                <h4 class="font-medium text-gray-800 mb-1">霞谷</h4>
+                <ul class="text-gray-600 space-y-0.5">
+                  <li>• 雪隐峰：圆梦村坐两次船，或从风行网道可达</li>
                 </ul>
               </div>
               <div>
-                <h4 class="font-semibold mb-2">暮土</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                  <li>边陲荒漠：暮土大厅后第一图</li>
-                  <li>黑水港湾：四龙图旁星之门可达</li>
-                  <li>巨兽荒原：四龙图</li>
+                <h4 class="font-medium text-gray-800 mb-1">暮土</h4>
+                <ul class="text-gray-600 space-y-0.5">
+                  <li>• 边陲荒漠：暮土大厅后第一图</li>
+                  <li>• 黑水港湾：四龙图旁星之门可达</li>
+                  <li>• 巨兽荒原：四龙图</li>
                 </ul>
               </div>
               <div>
-                <h4 class="font-semibold mb-2">禁阁</h4>
-                <ul class="list-disc list-inside space-y-1 text-sm">
-                  <li>商船星球：星光沙漠一隅，星光沙漠绿洲左侧通道可达</li>
+                <h4 class="font-medium text-gray-800 mb-1">禁阁</h4>
+                <ul class="text-gray-600 space-y-0.5">
+                  <li>• 商船星球：星光沙漠绿洲左侧通道可达</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
-        
+
         <!-- 温馨提示 -->
         <section>
           <h3 class="text-xl font-semibold mb-3">温馨提示</h3>
           <div class="space-y-3">
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-info-circle text-blue-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-blue-700">
-                    黑暗腐蚀降落时，降落地点的天空会变为红色。
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-blue-700">黑暗腐蚀降落时，降落地点的天空会变为<strong>红色</strong>。</p>
             </div>
-            
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-info-circle text-blue-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-blue-700">
-                    同一天多次完成红石或黑石的净化任务只能在第一次获得奖励.但多次净化红石可以多次完成破晓季向导的任务，故破晓季任务可以一天做完。
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-blue-700">同一天多次完成净化任务，<strong>只在第一次获得奖励</strong>。但多次净化红石可多次完成破晓季向导任务，破晓季任务可以一天做完。</p>
             </div>
-            
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-info-circle text-blue-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-blue-700">
-                    远古回忆中的金人属于普通光翼，献祭后需要重新获取。
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-blue-700">远古回忆中的金人属于<strong>普通光翼</strong>，献祭后需要重新获取。</p>
             </div>
-            
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-info-circle text-blue-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-blue-700">
-                    红石净化任务开始时光圈内坐下的玩家形成一个队伍。收集光之碎片的进度为全队累计，完成任务后全队获得相等的升华蜡烛。
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-blue-700">红石净化任务中，光圈内坐下的玩家形成一队，收集光之碎片的进度为<strong>全队累计</strong>，完成后全队获得等量升华蜡烛。</p>
             </div>
-            
             <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-exclamation-triangle text-yellow-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-yellow-700">
-                    若红石时间结束时净化任务未完成，任务会强行中止，不会获得升华蜡烛。此时在当天完成下一场红石的净化任务可以获得升华蜡烛。
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-yellow-700">红石时间结束时净化任务未完成，任务会强行中止，<strong>不会获得升华蜡烛</strong>。当天下一场完成仍可获得。</p>
             </div>
-            
             <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-exclamation-triangle text-yellow-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-yellow-700">
-                    不建议最后卡点去烧黑暗之花，超时会拿不到奖励；以防万一最好提前10分钟烧完黑暗之花
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-yellow-700"><strong>不建议卡点烧花</strong>，超时拿不到奖励。建议提前10分钟完成。</p>
             </div>
-            
             <div class="bg-green-50 border-l-4 border-green-400 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <i class="fa fa-check-circle text-green-400"></i>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm text-green-700">
-                    每次只有一次奖励，所以三个时间选一个时间段去一次即可
-                  </p>
-                </div>
-              </div>
+              <p class="text-sm text-green-700">每天只可获一次奖励，<strong>三个时段选一个去即可</strong>。</p>
             </div>
           </div>
         </section>
-        
+
         <!-- 开发者模式开关 -->
         <section class="mt-6">
           <div class="flex justify-center items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
