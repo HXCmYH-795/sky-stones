@@ -3,7 +3,7 @@
 
 
 // 应用版本号
-const APP_VERSION = 'v4.51';
+const APP_VERSION = 'v4.53';
 
 
 const STONE_CONFIG = {

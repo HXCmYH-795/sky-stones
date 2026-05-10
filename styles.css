@@ -45,14 +45,14 @@ body {
 
 /* 截图区域样式 */
 .screenshot-area {
-  display: none; /* 默认隐藏截图区域 */
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
   background-color: #FAFAFA;
   width: 100%;
-  max-width: 800px; /* 限制截图宽度 */
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -139,11 +139,11 @@ body {
 
 /* 详情弹窗样式 */
 .detail-modal {
-  display: none !important; /* 默认隐藏 */
+  display: none !important;
 }
 
 .detail-modal.show {
-  display: flex !important; /* 显示时覆盖 */
+  display: flex !important;
 }
 
 /* PC端隐藏移动端弹窗 */
@@ -158,16 +158,14 @@ body {
 
 /* 移动端特定样式 */
 @media (max-width: 640px) {
-  /* 调整日历容器内边距 */
   .container {
     padding: 0.5rem !important;
   }
-  
+
   .bg-white.rounded-xl.shadow-lg {
     padding: 0.75rem !important;
   }
-  
-  /* 调整按钮大小 */
+
   .btn-icon {
     width: 40px;
     height: 40px;
@@ -176,31 +174,29 @@ body {
     justify-content: center;
     padding: 0;
   }
-  
+
   .btn-primary {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
   }
-  
-  /* 调整国际服链接按钮位置和大小 */
+
   #internationalLinkContainer {
     top: 0.5rem;
     left: 0.5rem;
     transform: none;
     z-index: 40;
   }
-  
+
   #internationalLinkBtn {
     width: 2rem !important;
     height: 2rem !important;
     font-size: 0.875rem;
   }
-  
+
   #internationalLinkContainer .text-xs {
     font-size: 0.625rem;
   }
-  
-  /* 调整操作按钮位置，避免覆盖内容 */
+
   .fixed.top-4.right-4 {
     top: auto;
     bottom: 1rem;
@@ -211,44 +207,38 @@ body {
     border-radius: 999px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
-  
-  /* 星期标题行字体调小 */
+
   .grid.grid-cols-7.gap-2.mb-2 > div {
     font-size: 0.75rem;
     padding: 0.5rem 0;
   }
-  
-  /* 优化移动端导航文字换行 */
+
   .nav-text {
     word-spacing: 100vw;
     text-align: center;
   }
-  
-  /* 调整模态框样式 */
+
   #exportModal .bg-white.rounded-xl.p-6 {
     margin: 0.5rem;
     padding: 1rem !important;
   }
-  
-  /* 调整底部信息 */
+
   footer {
-    margin: 1rem 0 60px 0; /* 增加底部边距，避免被浮动按钮遮挡 */
+    margin: 1rem 0 60px 0;
   }
-  
-  /* 优化日历标题大小 */
+
   h1.text-\[clamp(1.5rem,4vw,2rem)\] {
     font-size: clamp(1.2rem, 5vw, 1.8rem);
   }
-  
+
   h2#currentMonth {
     font-size: clamp(1rem, 4vw, 1.2rem);
   }
-  
+
   .pc-only {
     display: none !important;
   }
-  
-  /* 截图区域在移动端的优化 */
+
   .screenshot-area {
     max-width: 100%;
     padding: 0 10px;
@@ -256,13 +246,13 @@ body {
   }
 }
 
-/* 截图专用样式 - 确保截图内容清晰 */
+/* 截图专用样式 */
 .screenshot-area .pc-day-cell {
   aspect-ratio: 1/1;
-  min-height: 50px; /* 确保每个格子有足够高度 */
+  min-height: 50px;
 }
 
-/* 移动端截图专用样式 - 完全重写布局系统 */
+/* 移动端截图专用样式 */
 .screenshot-area.mobile-screenshot {
   max-width: 100% !important;
   width: 100% !important;
@@ -271,20 +261,18 @@ body {
   overflow: hidden !important;
 }
 
-/* 重新设计日历网格，解决格子重叠问题 */
 .screenshot-area.mobile-screenshot .calendar-grid {
   display: grid !important;
   grid-template-columns: repeat(7, 1fr) !important;
-  gap: 1px !important; /* 减小间距避免格子重叠 */
+  gap: 1px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
-/* 完全重写日期格子样式，解决宽度问题 */
 .screenshot-area.mobile-screenshot .pc-day-cell {
-  aspect-ratio: 1/1.6 !important; /* 减小高度比例，使布局更紧凑 */
-  min-height: 80px !important; /* 减小最小高度 */
-  padding: 4px 2px !important; /* 减小内边距 */
+  aspect-ratio: 1/1.6 !important;
+  min-height: 80px !important;
+  padding: 4px 2px !important;
   box-sizing: border-box !important;
   position: relative !important;
   display: flex !important;
@@ -297,13 +285,11 @@ body {
   border-radius: 4px !important;
 }
 
-/* 为有红黑石信息的格子添加特殊样式 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg {
-  padding: 4px 2px !important; /* 调整有信息的格子内边距 */
+  padding: 4px 2px !important;
 }
 
-/* 重写内容容器，分别处理有无信息的情况 */
 .screenshot-area.mobile-screenshot .content-container {
   display: flex !important;
   flex-direction: column !important;
@@ -316,7 +302,6 @@ body {
   box-sizing: border-box !important;
 }
 
-/* 无红黑石信息的日期 - 仅显示居中的日期数字 */
 .screenshot-area.mobile-screenshot .pc-day-cell:not(.redstone-bg):not(.blackstone-bg) .content-container {
   justify-content: center !important;
   align-items: center !important;
@@ -330,17 +315,15 @@ body {
   padding: 0 !important;
 }
 
-/* 有红黑石信息的日期 - 完全重写布局 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .content-container,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .content-container {
   justify-content: flex-start !important;
   align-items: center !important;
   gap: 0px !important;
-  padding-top: 1px !important; /* 进一步减小顶部空间 */
-  min-height: 70px !important; /* 进一步减小最小高度 */
+  padding-top: 1px !important;
+  min-height: 70px !important;
 }
 
-/* 重写header-row，分别处理有无信息的情况 */
 .screenshot-area.mobile-screenshot .header-row {
   display: flex !important;
   flex-direction: row !important;
@@ -352,10 +335,9 @@ body {
   box-sizing: border-box !important;
 }
 
-/* 有红黑石信息的日期 - 重写header-row */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .header-row,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .header-row {
-  flex-direction: row !important; /* 日期和类型水平排列 */
+  flex-direction: row !important;
   justify-content: center !important;
   align-items: center !important;
   gap: 1px !important;
@@ -363,7 +345,6 @@ body {
   width: 100% !important;
 }
 
-/* 有红黑石信息的日期 - 重写日期数字 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .date-num,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .date-num {
   font-size: 0.7rem !important;
@@ -375,7 +356,6 @@ body {
   flex-shrink: 0 !important;
 }
 
-/* 有红黑石信息的日期 - 重写类型标签 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-type,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-type {
   font-size: 0.5rem !important;
@@ -388,7 +368,6 @@ body {
   flex-shrink: 0 !important;
 }
 
-/* 有红黑石信息的日期 - 重写区域信息 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-area,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-area {
   font-size: 0.5rem !important;
@@ -401,13 +380,87 @@ body {
   overflow: visible !important;
   text-overflow: clip !important;
   flex-shrink: 0 !important;
-  margin-top: 6px !important; /* 进一步减小间距 */
+  margin-top: 6px !important;
 }
 
-/* 有红黑石信息的日期 - 重写时间段 */
 .screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-time,
 .screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-time {
-  font-size: 0.45rem !important;
+  font-size: 0.4rem !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0px !important;
+  flex-grow: 1 !important;
+  margin-top: 4px !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.redstone-bg .stone-time div,
+.screenshot-area.mobile-screenshot .pc-day-cell.blackstone-bg .stone-time div {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 {
+  opacity: 0.6 !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400.redstone-bg,
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400.blackstone-bg {
+  opacity: 0.6 !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .content-container {
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0px !important;
+  padding-top: 1px !important;
+  min-height: 70px !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .header-row {
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1px !important;
+  margin-bottom: 1px !important;
+  width: 100% !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .date-num {
+  font-size: 0.55rem !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0.8 !important;
+  flex-shrink: 0 !important;
+  height: 10px !important;
+  max-height: 10px !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-type {
+  font-size: 0.4rem !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0.8 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  height: 8px !important;
+  max-height: 8px !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-area {
+  font-size: 0.5rem !important;
   text-align: center !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -417,6 +470,32 @@ body {
   overflow: visible !important;
   text-overflow: clip !important;
   flex-shrink: 0 !important;
+  margin-top: 6px !important;
+}
+
+.screenshot-area.mobile-screenshot .pc-day-cell.text-gray-400 .stone-time {
+  font-size: 0.4rem !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0px !important;
+  flex-grow: 1 !important;
+  margin-top: 4px !important;
+}
+
+/* PC端截图样式 */
+.screenshot-area.pc-screenshot .stone-area {
+  font-size: 0.75rem;
+}
+
+.screenshot-area.pc-screenshot .stone-time {
+  font-size: 0.7rem;
 }
 
 /* 动画定义 */
@@ -495,27 +574,25 @@ body {
   opacity: 0.9;
 }
 
-/* 适配移动端彩蛋 */
 @media (max-width: 640px) {
   #achievementEgg {
     padding: 1rem 1.5rem;
     max-width: 80%;
   }
-  
+
   #achievementEgg .egg-icon {
     font-size: 1.5rem;
   }
-  
+
   #achievementEgg .egg-title {
     font-size: 1rem;
   }
-  
+
   #achievementEgg .egg-desc {
     font-size: 0.8rem;
   }
 }
 
-/* 彩蛋动画 */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
