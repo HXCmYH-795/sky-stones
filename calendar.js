@@ -11,7 +11,7 @@ class SkyStoneCalendar {
     
     // 开发者模式
     this.devMode = false;
-    this.devTime = null;
+    this.timeOffset = 0; // 时间偏移量（毫秒），正数=未来，负数=过去
     
     // DOM元素
     this.calendarGrid = document.getElementById('calendarGrid');
@@ -69,9 +69,15 @@ class SkyStoneCalendar {
     this.renderExportCalendar();
     this.updateStoneStatus();
     
+    // 启动定时器，每秒更新状态
     setInterval(() => {
       this.updateStoneStatus();
     }, 1000);
+
+    // 页面稳定后检查时间偏差
+    setTimeout(() => {
+      checkTimeOffset();
+    }, 100);
   }
   
   bindInternationalLink() {
@@ -157,17 +163,15 @@ class SkyStoneCalendar {
     const resetDevTime = document.getElementById('resetDevTime');
     const devModeToggle = document.getElementById('devModeToggle');
     
-        // 开发者模式开关事件
+    // 开发者模式开关事件
     if (devModeToggle) {
       devModeToggle.addEventListener('change', (e) => {
         if (e.target.checked) {
-          // 打开开关：显示设置面板
           devModePanel.classList.remove('hidden');
         } else {
-          // 关闭开关：隐藏面板，同时重置为实时时间
           devModePanel.classList.add('hidden');
           this.devMode = false;
-          this.devTime = null;
+          this.timeOffset = 0;
           document.getElementById('devDateTime').value = '';
           this.updateStoneStatus();
         }
@@ -182,7 +186,8 @@ class SkyStoneCalendar {
       const devDateTime = document.getElementById('devDateTime');
       if (devDateTime.value) {
         this.devMode = true;
-        this.devTime = new Date(devDateTime.value);
+        const targetTime = new Date(devDateTime.value);
+        this.timeOffset = targetTime.getTime() - Date.now();
         this.updateStoneStatus();
       } else {
         alert('请选择一个有效的时间');
@@ -191,7 +196,7 @@ class SkyStoneCalendar {
     
     resetDevTime.addEventListener('click', () => {
       this.devMode = false;
-      this.devTime = null;
+      this.timeOffset = 0;
       document.getElementById('devDateTime').value = '';
       this.updateStoneStatus();
     });
@@ -602,7 +607,7 @@ sky-stones.pages.dev`;
   }
   
   copyTodayInfo() {
-    const now = this.devMode ? this.devTime : new Date();
+    const now = this.devMode ? new Date(Date.now() + this.timeOffset) : new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const month = today.getMonth() + 1;
     const day = today.getDate();
@@ -746,20 +751,14 @@ sky-stones.pages.dev`;
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    // 只有周二需要检查（看当周的周三是否跨半月）
     if (dayOfWeek === 2) {
-      // 计算当周三是几号
       const wednesday = new Date(year, month, day + 1);
-      // 如果周三跨到了下个月，说明跨半月
       if (wednesday.getMonth() !== month) return true;
-      // 如果周三是16号或之后（下半月），而当天是15号或之前（上半月），跨半月
       if (wednesday.getDate() >= 16 && day <= 15) return true;
       return false;
     }
 
-    // 周三当天：直接判断
     if (dayOfWeek === 3) {
-      // 周三如果是16号或之后，且前一天的周二还在上半月，就是跨半月
       if (day >= 16 && day <= 22) {
         const tuesday = day - 1;
         if (tuesday <= 15) return true;
@@ -789,7 +788,7 @@ sky-stones.pages.dev`;
   }
   
   updateStoneStatus() {
-    const now = this.devMode ? this.devTime : new Date();
+    const now = this.devMode ? new Date(Date.now() + this.timeOffset) : new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const hasRed = this.hasRedStone(today);
     const hasBlack = this.hasBlackStone(today);
@@ -798,12 +797,14 @@ sky-stones.pages.dev`;
       this.statusInfoText.textContent = '今天无红黑石';
       this.statusInfoBox.style.borderColor = '#D1D5DB';
       this.statusInfoBox.style.borderWidth = '1px';
+      const countdownEl = document.getElementById('countdownTimer');
+      if (countdownEl) countdownEl.classList.add('hidden');
       return;
     }
     
     const dayOfWeek = now.getDay();
     const timeSlots = this.getTimeSlots(dayOfWeek);
-    const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+    const currentTimeInSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
     
     let statusText = '';
     let foundActiveSlot = false;
@@ -812,31 +813,48 @@ sky-stones.pages.dev`;
       const [start, end] = slot.split('~');
       const [startHour, startMinute] = start.split(':').map(Number);
       const [endHour, endMinute] = end.split(':').map(Number);
-      const startTimeInMinutes = startHour * 60 + startMinute;
-      const endTimeInMinutes = endHour * 60 + endMinute;
+      const startTimeInSeconds = startHour * 3600 + startMinute * 60;
+      const endTimeInSeconds = endHour * 3600 + endMinute * 60;
       
-      if (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes < endTimeInMinutes) {
+      if (currentTimeInSeconds >= startTimeInSeconds && currentTimeInSeconds < endTimeInSeconds) {
         foundActiveSlot = true;
         const stoneType = hasRed ? '红石' : '黑石';
         const stoneColor = hasRed ? 'text-primary' : 'text-blackstone';
-        const remainingMinutes = endTimeInMinutes - currentTimeInMinutes;
+        const remainingSeconds = endTimeInSeconds - currentTimeInSeconds;
+        const remainingMinutes = remainingSeconds / 60;
         const map = this.getMap(now.getDate());
         const area = this.getArea(map, dayOfWeek);
         const stoneStyle = hasRed ? 'font-bold' : 'font-bold underline decoration-dotted';
         
         if (remainingMinutes <= 5) {
           const warningMessage = hasRed ? '未能在结束前完成无法获得升华蜡烛' : '未能在结束前完成无法获得烛火';
-          statusText = `<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>时间已不足5分钟，不推荐前往<button class="text-blue-500 hover:text-blue-700 ml-1" onclick="showTooltip(event, '${warningMessage}')"><i class="fa fa-question-circle"></i></button><br>降落地点：${map}·${area}<br>时间：${slot}`;
+          statusText = `<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>即将结束 <button class="text-blue-500 hover:text-blue-700 ml-1" onclick="showTooltip(event, '${warningMessage}')"><i class="fa fa-question-circle"></i></button><br>降落地点：${map}·${area}<br>时间：${slot}`;
         } else if (remainingMinutes <= 10) {
           statusText = `<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>即将结束<br>降落地点：${map}·${area}<br>时间：${slot}`;
         } else {
           statusText = `<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>正在进行中<br>降落地点：${map}·${area}<br>时间：${slot}`;
+        }
+
+        const countdownEl = document.getElementById('countdownTimer');
+        if (countdownEl) {
+          const mins = Math.floor(remainingSeconds / 60);
+          const secs = remainingSeconds % 60;
+          countdownEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+          countdownEl.classList.remove('hidden');
+          if (stoneType === '红石') {
+            countdownEl.className = 'absolute top-1.5 right-2 text-sm font-mono font-bold px-2 py-0.5 rounded-md bg-red-100 text-primary';
+          } else {
+            countdownEl.className = 'absolute top-1.5 right-2 text-sm font-mono font-bold px-2 py-0.5 rounded-md bg-gray-100 text-blackstone';
+          }
         }
         break;
       }
     }
     
     if (!foundActiveSlot) {
+      const countdownEl = document.getElementById('countdownTimer');
+      if (countdownEl) countdownEl.classList.add('hidden');
+
       const stoneType = hasRed ? '红石' : '黑石';
       const stoneColor = hasRed ? 'text-primary' : 'text-blackstone';
       const stoneStyle = hasRed ? 'font-bold' : 'font-bold underline decoration-dotted';
@@ -844,7 +862,7 @@ sky-stones.pages.dev`;
       const upcomingSlots = timeSlots.filter(slot => {
         const [start] = slot.split('~');
         const [startHour, startMinute] = start.split(':').map(Number);
-        return (startHour * 60 + startMinute) > currentTimeInMinutes;
+        return (startHour * 3600 + startMinute * 60) > currentTimeInSeconds;
       });
       
       if (upcomingSlots.length === 0) {
@@ -855,21 +873,42 @@ sky-stones.pages.dev`;
         upcomingSlots.forEach(slot => {
           const [start] = slot.split('~');
           const [h, m] = start.split(':').map(Number);
-          const diff = (h * 60 + m) - currentTimeInMinutes;
+          const diff = (h * 3600 + m * 60) - currentTimeInSeconds;
           if (diff < minDiff) { minDiff = diff; closestSlot = slot; }
         });
         
-        const hours = Math.floor(minDiff / 60);
-        const minutes = minDiff % 60;
-        statusText = `距离下一场<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>还有${hours > 0 ? hours + '小时' : ''}${minutes}分钟`;
+        const totalSeconds = minDiff;
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = Math.floor(totalSeconds % 60);
+
+        if (totalSeconds < 60) {
+          statusText = `距离下一场<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>还有${seconds}秒`;
+        } else if (minutes === 0) {
+          statusText = `距离下一场<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>还有${hours}小时`;
+        } else if (hours > 0) {
+          statusText = `距离下一场<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>还有${hours}小时${minutes}分钟`;
+        } else {
+          statusText = `距离下一场<span class="${stoneColor} ${stoneStyle}">${stoneType}</span>还有${minutes}分钟`;
+        }
         
         const map = this.getMap(now.getDate());
         const area = this.getArea(map, dayOfWeek);
         statusText += `<br>降落地点：${map}·${area}`;
       }
     }
-    // 根据红黑石状态调整信息条边框颜色
-    if (foundActiveSlot || hasRed || hasBlack) {
+
+    const upcomingSlots = timeSlots.filter(slot => {
+      const [start] = slot.split('~');
+      const [startHour, startMinute] = start.split(':').map(Number);
+      return (startHour * 3600 + startMinute * 60) > currentTimeInSeconds;
+    });
+    const allEnded = !foundActiveSlot && upcomingSlots.length === 0 && (hasRed || hasBlack);
+
+    if (allEnded) {
+      this.statusInfoBox.style.borderColor = '#D1D5DB';
+      this.statusInfoBox.style.borderWidth = '1px';
+    } else if (foundActiveSlot || hasRed || hasBlack) {
       const stoneType = hasRed ? '红石' : '黑石';
       if (stoneType === '红石') {
         this.statusInfoBox.style.borderColor = '#D05D5A';
@@ -879,9 +918,10 @@ sky-stones.pages.dev`;
         this.statusInfoBox.style.borderWidth = '2px';
       }
     } else {
-      this.statusInfoBox.style.borderColor = '#D1D5DB'; // 默认灰色
+      this.statusInfoBox.style.borderColor = '#D1D5DB';
       this.statusInfoBox.style.borderWidth = '1px';
     }
+
     this.statusInfoText.innerHTML = statusText;
   }
 }
@@ -889,7 +929,6 @@ sky-stones.pages.dev`;
 document.addEventListener('DOMContentLoaded', () => {
   new SkyStoneCalendar();
 
-  // 设置当前年份
   const currentYearElement = document.getElementById('currentYear');
   if (currentYearElement) {
     currentYearElement.textContent = new Date().getFullYear();
@@ -900,12 +939,10 @@ document.addEventListener('DOMContentLoaded', () => {
     aboutVersionElement.textContent = APP_VERSION;
   }
   
-  // 设置版本号（从 config.js 读取）
   const versionElement = document.getElementById('appVersion');
   if (versionElement) {
     versionElement.textContent = APP_VERSION;
   }
 
-  // 设置页面标题
   document.title = `光遇国服红黑石日历 ${APP_VERSION}`;
 });

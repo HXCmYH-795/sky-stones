@@ -179,50 +179,70 @@
       
             <!-- 使用说明内容 -->
       <div id="content-usage" class="tab-content space-y-6">
-        <!-- 状态信息条 -->
+                <!-- 状态信息条 -->
         <section>
           <h3 class="text-xl font-semibold mb-3">状态信息条</h3>
-          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+          
+          <!-- 边框颜色说明 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
             <p class="text-sm text-gray-600 mb-3">
-              日历上方的信息条会实时显示当前红黑石的状态，根据时间自动变化。
+              信息条位于日历上方，实时显示当前红黑石状态，<strong>边框颜色</strong>随当日情况自动变化：
             </p>
-            <div class="space-y-2 text-sm">
-              <div class="flex items-start">
-                <span class="text-gray-400 mr-2 mt-0.5">•</span>
-                <div>
-                  <span class="text-gray-800 font-medium">今天无红黑石</span>
-                  <span class="text-gray-500"> — 今日没有红石/黑石的降落</span>
-                </div>
+            <div class="flex flex-wrap gap-4 text-sm">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded border-2 mr-2 flex-shrink-0" style="border-color: #D05D5A;"></div>
+                <span class="text-gray-700">红石日：红色边框</span>
               </div>
-              <div class="flex items-start">
-                <span class="text-gray-400 mr-2 mt-0.5">•</span>
-                <div>
-                  <span class="text-red-500 font-medium">红石 / 黑石 正在进行中</span>
-                  <span class="text-gray-500"> — 当前处于某个降落时间段内</span>
-                </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded border-2 mr-2 flex-shrink-0" style="border-color: #6B6B6B;"></div>
+                <span class="text-gray-700">黑石日：灰色边框</span>
               </div>
-              <div class="flex items-start">
-                <span class="text-gray-400 mr-2 mt-0.5">•</span>
-                <div>
-                  <span class="text-orange-500 font-medium">即将结束 / 不足5分钟</span>
-                  <span class="text-gray-500"> — 当前时段临结束前10分钟/5分钟时，会提示即将结束或建议不要前往</span>
-                </div>
-              </div>
-              <div class="flex items-start">
-                <span class="text-gray-400 mr-2 mt-0.5">•</span>
-                <div>
-                  <span class="text-blue-500 font-medium">距离下一场还有 X 小时 X 分钟</span>
-                  <span class="text-gray-500"> — 当天还有未开始的时段时，显示倒数时间及降落地点</span>
-                </div>
-              </div>
-              <div class="flex items-start">
-                <span class="text-gray-400 mr-2 mt-0.5">•</span>
-                <div>
-                  <span class="text-gray-500 font-medium">今日红石 / 黑石已全部结束</span>
-                  <span class="text-gray-500"> — 当天所有时段均已过</span>
-                </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded border-2 mr-2 flex-shrink-0" style="border-color: #D1D5DB;"></div>
+                <span class="text-gray-700">无红黑石 / 全部结束后：默认灰色</span>
               </div>
             </div>
+          </div>
+
+          <!-- 状态对应表 -->
+          <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="bg-gray-100 border-b border-gray-200">
+                  <th class="text-left py-2 px-3 font-medium text-gray-700">信息条显示</th>
+                  <th class="text-left py-2 px-3 font-medium text-gray-700">含义</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr>
+                  <td class="py-2 px-3 text-gray-800">今天无红黑石</td>
+                  <td class="py-2 px-3 text-gray-500">当日没有红石或黑石降落</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3">
+                    <span class="text-red-500 font-medium">红石 / 黑石 正在进行中</span>
+                    <span class="text-xs text-gray-400 ml-2">+ 右上角倒计时</span>
+                  </td>
+                  <td class="py-2 px-3 text-gray-500">当前正处于某个降落时段内，倒计时显示距离本场结束的剩余时间</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3">
+                    <span class="text-orange-500 font-medium">即将结束</span>
+                    <span class="text-xs text-gray-400 ml-2">+ 倒计时 +</span>
+                    <span class="text-blue-500"><i class="fa fa-question-circle"></i></span>
+                  </td>
+                  <td class="py-2 px-3 text-gray-500">结束前 5 分钟内，不推荐前往。点击蓝色问号可查看具体原因</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 text-blue-600 font-medium">距离下一场还有 X 分钟</td>
+                  <td class="py-2 px-3 text-gray-500">当日还有未开始的时段，显示等待时间及降落地点</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 text-gray-500 font-medium">今日红石 / 黑石已全部结束</td>
+                  <td class="py-2 px-3 text-gray-500">当日所有时段均已过，边框恢复默认灰色</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -343,6 +363,18 @@
               <div class="ml-3">
                 <p class="text-sm text-yellow-700">
                   本日历数据仅供参考，实际游戏中的红黑石降落可能因游戏更新、活动安排等原因发生变化。如有差异，请以游戏内实际情况为准。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-3">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <i class="fa fa-info-circle text-blue-400"></i>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-blue-700">
+                  本日历的倒计时、剩余时间等功能基于<strong>设备本地时间</strong>计算。若设备时间有误，显示结果可能不准确。信息条已内置时间校准提示，如发现偏差过大请及时调整设备时间。
                 </p>
               </div>
             </div>
@@ -791,7 +823,7 @@
   </div>
   
   <!-- 开发者模式时间设置面板 -->
-  <div id="devModePanel" class="fixed top-16 left-4 bg-white border border-gray-300 rounded-lg p-3 shadow-lg z-50 hidden">
+  <div id="devModePanel" class="fixed top-1/2 left-4 -translate-y-1/2 bg-white border border-gray-300 rounded-lg p-3 shadow-lg z-50 hidden">
     <div class="text-xs text-gray-600 mb-2">设置测试时间：</div>
     <div class="flex flex-col gap-2">
       <input type="datetime-local" id="devDateTime" class="text-sm border border-gray-300 rounded px-2 py-1">
@@ -850,8 +882,9 @@
         </div>
         
         <!-- 状态信息显示框 -->
-        <div id="statusInfoBox" class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm max-w-full text-center shadow-sm">
+        <div id="statusInfoBox" class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm max-w-full text-center shadow-sm relative">
           <div id="statusInfoText" class="break-words">今天无红黑石</div>
+          <div id="countdownTimer" class="absolute top-1.5 right-2 text-sm font-mono font-bold px-2 py-0.5 rounded-md hidden"></div>
         </div>
       </div>
       
@@ -903,6 +936,7 @@
   </div>
 <!-- 引入外部脚本 -->
 <script src="js/config.js"></script>
+<script src="js/timeCheck.js"></script>
 <script src="js/tooltip.js"></script>
 <script src="js/calendar.js"></script>
 
