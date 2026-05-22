@@ -39,3 +39,38 @@ function showTooltip(event, text) {
     }
   }, 3000);
 }
+
+// 国际服跳转链接管理
+function initInternationalLink() {
+  const internationalLinkBtn = document.getElementById('internationalLinkBtn');
+  const internationalModal = document.getElementById('internationalModal');
+  const closeInternationalModal = document.getElementById('closeInternationalModal');
+  const continueToInternational = document.getElementById('continueToInternational');
+  const cancelInternational = document.getElementById('cancelInternational');
+
+  if (!internationalLinkBtn || !internationalModal) return;
+
+  internationalLinkBtn.addEventListener('click', () => {
+    internationalModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closeModal = () => {
+    internationalModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  if (closeInternationalModal) closeInternationalModal.addEventListener('click', closeModal);
+  if (cancelInternational) cancelInternational.addEventListener('click', closeModal);
+
+  if (continueToInternational) {
+    continueToInternational.addEventListener('click', () => {
+      window.location.href = 'https://sky-shards.pages.dev/zh';
+      closeModal();
+    });
+  }
+
+  internationalModal.addEventListener('click', (e) => {
+    if (e.target === internationalModal) closeModal();
+  });
+}
