@@ -74,3 +74,10 @@ function initInternationalLink() {
     if (e.target === internationalModal) closeModal();
   });
 }
+
+// 页面加载完成后自动初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initInternationalLink);
+} else {
+  initInternationalLink();
+}
